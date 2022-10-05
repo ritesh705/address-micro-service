@@ -1,6 +1,7 @@
 package com.ritesh.microservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +15,10 @@ import com.ritesh.microservice.service.AddressService;
 
 @RestController
 @RequestMapping("/api/address")
-public class AddressController {
+public class AddressController
+{
+	@Value("${server.port}")
+	private String port;
 
 	@Autowired
 	AddressService addressService;
@@ -25,7 +29,9 @@ public class AddressController {
 	}
 	
 	@GetMapping("/getById/{id}")
-	public AddressResponse getById(@PathVariable long id) {
+	public AddressResponse getById(@PathVariable long id)
+	{
+		System.out.println("Request Served by port : "+port);
 		return addressService.getById(id);
 	}
 	
