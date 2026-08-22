@@ -1,11 +1,16 @@
+logging:
+  level:
+    root: DEBUG
+
 spring:
+  application:
+    name: address-service
+  config:
+    import: optional:configserver:http://localhost:8888
   datasource:
     url: jdbc:mysql://localhost:3306/ritesh_db
     username: root
     password: admin
-
-  application:
-    name: address-service
 
 server:
   port: 8083
