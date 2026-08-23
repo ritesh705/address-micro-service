@@ -1,12 +1,8 @@
-logging:
-  level:
-    root: DEBUG
-
 spring:
   application:
     name: address-service
   config:
-    import: optional:configserver:http://localhost:8888
+    import: optional:configserver:http://localhost:9999
   datasource:
     url: jdbc:mysql://localhost:3306/ritesh_db
     username: root
@@ -16,6 +12,26 @@ server:
   port: 8083
 
 eureka:
-  cient:
+  client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  tracing:
+    sampling:
+      probability: 1.0
+  opentelemetry:
+    tracing:
+      export:
+        otlp:
+          endpoint: http://localhost:4318/v1/traces
+
+logging:
+  level:
+    root: INFO
+  pattern:
+    correlation: "[traceId=%X{traceId:-} spanId=%X{spanId:-}] "
