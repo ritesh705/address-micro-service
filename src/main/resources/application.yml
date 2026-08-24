@@ -21,14 +21,23 @@ management:
     web:
       exposure:
         include: "*"
+
   tracing:
     sampling:
       probability: 1.0
+
   opentelemetry:
     tracing:
       export:
         otlp:
           endpoint: http://localhost:4318/v1/traces
+
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+      otlp:
+        enabled: false
 
 logging:
   level:
